@@ -1,5 +1,6 @@
 import { About } from '@/components/about/About';
 import { Collaborators } from '@/components/collaborators/Collaborators';
+import { Contact } from '@/components/contact/Contact';
 import { Experience } from '@/components/experience/Experience';
 import { Hero } from '@/components/hero/Hero';
 import { Projects } from '@/components/projects/Projects';
@@ -8,6 +9,7 @@ import { Skills } from '@/components/skills/Skills';
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col bg-zinc-950">
+      
       {/*
         Hero controls the dark-to-light transition via scroll.
         It fades its background to bg-zinc-50 at the end.
@@ -34,6 +36,7 @@ export default function Home() {
       <Skills />
 
       <Collaborators />
+      <Contact />
     </main>
   );
 }
