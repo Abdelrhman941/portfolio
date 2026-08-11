@@ -11,10 +11,10 @@ export const SPLASH = {
   secondaryInMs: 1400,
 
   /** Total time the splash stays mounted before the reveal starts. */
-  totalMs: 2800,
+  totalMs: 3800,
 
   /** Same, but for prefers-reduced-motion — shorter, still readable. */
-  reducedMotionMs: 1800,
+  reducedMotionMs: 2800,
 
   /** Duration of the exit transition. */
   exitTransitionS: 0.85,

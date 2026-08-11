@@ -1,10 +1,10 @@
 'use client';
 
+import type { Variants } from 'motion/react';
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react';
 import { useRef } from 'react';
 import { CertificateArtifact } from './CertificateArtifact';
 import { experienceData, type ExperienceItem } from './experience-data';
-import type { Variants } from 'motion/react';
 
 export function Experience() {
   const shouldReduceMotion = useReducedMotion();
@@ -57,7 +57,7 @@ export function Experience() {
           viewport={{ once: true, margin: '-100px' }}
           variants={safeContainer}
         >
-          {experienceData.map((item) => (
+          {experienceData.map(item => (
             <TimelineItem
               key={item.id}
               item={item}

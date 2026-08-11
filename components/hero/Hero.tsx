@@ -23,9 +23,12 @@ export function Hero() {
   return <HeroContent isFirstLoad={isFirstLoad} />;
 }
 
-function HeroContent({ isFirstLoad }: { isFirstLoad: boolean }) {
+import { useNavMode } from '../navbar/NavProvider';
+
+export function HeroContent({ isFirstLoad }: { isFirstLoad: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
+  const isNavMode = useNavMode();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -55,7 +58,7 @@ function HeroContent({ isFirstLoad }: { isFirstLoad: boolean }) {
   );
   const mutedColor = useTransform(scrollYProgress, [0, 0.7], [textMutedLight, textMutedDark]);
 
-  // Name scaling & translation
+  // Name scaling & translation (we keep these so it shrinks physically on scroll, then hands off to Navbar)
   const nameScale = useTransform(scrollYProgress, [0, 1], [1, 0.35]);
   const nameY = useTransform(scrollYProgress, [0, 1], ['0vh', '-38vh']);
   const nameTracking = useTransform(scrollYProgress, [0, 1], ['-0.04em', '-0.01em']);
@@ -134,7 +137,7 @@ function HeroContent({ isFirstLoad }: { isFirstLoad: boolean }) {
               </motion.span>
             </motion.div>
 
-            <motion.h1
+            <motion.div
               className="font-(family-name:--font-display) text-7xl sm:text-8xl lg:text-[10rem] font-bold leading-none tracking-tighter"
               style={
                 shouldReduceMotion
@@ -148,10 +151,14 @@ function HeroContent({ isFirstLoad }: { isFirstLoad: boolean }) {
                     }
               }
             >
-              <motion.span className="block" {...animProps(0.15)}>
-                Abdelrhman
-              </motion.span>
-            </motion.h1>
+              {!isNavMode ? (
+                <motion.span layoutId="abdelrhman-brand" className="block" {...animProps(0.15)}>
+                  Abdelrhman
+                </motion.span>
+              ) : (
+                <span className="block opacity-0">Abdelrhman</span>
+              )}
+            </motion.div>
 
             <motion.div
               className="mt-8 md:mt-12 flex max-w-2xl flex-col items-start gap-5 md:gap-6"
@@ -164,6 +171,15 @@ function HeroContent({ isFirstLoad }: { isFirstLoad: boolean }) {
                 >
                   I build production AI systems end-to-end.
                 </motion.h2>
+
+                <div className="mt-2 pointer-events-auto">
+                  <a
+                    href="#projects"
+                    className="inline-flex items-center gap-2 text-sm font-medium text-zinc-100 hover:text-zinc-300 transition-colors bg-white/5 hover:bg-white/10 px-5 py-3 rounded-full border border-white/10 backdrop-blur-md"
+                  >
+                    View selected work <span aria-hidden="true">&rarr;</span>
+                  </a>
+                </div>
 
                 <motion.p
                   className="text-base sm:text-lg max-w-md"

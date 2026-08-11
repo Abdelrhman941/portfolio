@@ -22,7 +22,7 @@ export function SplashScreen({ children }: { children: React.ReactNode }) {
   return (
     <>
       {/* SSR/Hydration fallback overlay */}
-      {showSplash === null && <div className="fixed inset-0 z-[100] bg-zinc-950" />}
+      {showSplash === null && <div className="fixed inset-0 z-100 bg-zinc-950" />}
 
       <AnimatePresence>
         {showSplash === true && (

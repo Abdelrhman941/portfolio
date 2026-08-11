@@ -3,40 +3,42 @@ import { Collaborators } from '@/components/collaborators/Collaborators';
 import { Contact } from '@/components/contact/Contact';
 import { Experience } from '@/components/experience/Experience';
 import { Hero } from '@/components/hero/Hero';
+import { NavProvider } from '@/components/navbar/NavProvider';
+import { Navbar } from '@/components/navbar/Navbar';
 import { Projects } from '@/components/projects/Projects';
 import { Skills } from '@/components/skills/Skills';
+import { SplashScreen } from '@/components/splash/SplashScreen';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col bg-zinc-950">
-      
-      {/*
-        Hero controls the dark-to-light transition via scroll.
-        It fades its background to bg-zinc-50 at the end.
-      */}
-      <Hero />
+    <SplashScreen>
+      <NavProvider>
+        <main className="flex min-h-screen flex-col bg-zinc-950 relative selection:bg-zinc-200/50">
+          <Navbar />
 
-      {/*
-        About section natively uses bg-zinc-50, naturally accepting
-        the user from the Hero's transition state.
-      */}
-      <About />
+          <Hero />
 
-      {/*
-        Projects section continues the light theme seamlessly.
-      */}
-      <Projects />
+          <About />
 
-      {/*
-        Experience section stays light but creates a subtle paper-like boundary
-        with bg-white, reinforcing the editorial document feel.
-      */}
-      <Experience />
+          <div id="projects">
+            <Projects />
+          </div>
 
-      <Skills />
+          <div id="experience">
+            <Experience />
+          </div>
 
-      <Collaborators />
-      <Contact />
-    </main>
+          <div id="skills">
+            <Skills />
+          </div>
+
+          <Collaborators />
+
+          <div id="contact">
+            <Contact />
+          </div>
+        </main>
+      </NavProvider>
+    </SplashScreen>
   );
 }

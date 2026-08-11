@@ -37,9 +37,9 @@ export function Collaborators() {
       </motion.div>
 
       <div className="mx-auto w-full max-w-5xl px-6 mt-12 flex justify-end">
-        <a 
-          href="https://unavatar.io" 
-          target="_blank" 
+        <a
+          href="https://unavatar.io"
+          target="_blank"
           rel="noopener noreferrer"
           className="text-[10px] text-zinc-400 hover:text-zinc-600 transition-colors font-mono"
         >

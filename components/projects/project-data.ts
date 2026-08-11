@@ -1,3 +1,14 @@
+export type CaseStudy = {
+  problem?: string;
+  architecture?: string;
+  myRole?: string;
+  technicalChallenges?: string[];
+  aiPipeline?: string;
+  engineeringDecisions?: string[];
+  whatChanged?: string;
+  outcome?: string;
+};
+
 export type Project = {
   id: string;
   title: string;
@@ -8,6 +19,7 @@ export type Project = {
   technologies: string[];
   github?: string;
   youtube?: string;
+  caseStudy?: CaseStudy;
 };
 
 export const projects: Project[] = [
@@ -31,6 +43,7 @@ export const projects: Project[] = [
       'Docker',
     ],
     github: 'https://github.com/Abdelrhman941/VirtAI-Project',
+    youtube: 'https://youtu.be/6D0XLI6iRRU?si=9m21MoGLTTKd8xXj',
   },
   {
     id: 'traffic-signs',

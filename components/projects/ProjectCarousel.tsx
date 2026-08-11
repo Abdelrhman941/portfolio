@@ -17,10 +17,10 @@ export function ProjectCarousel() {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowRight') {
-        setCurrentIndex((prev) => Math.min(prev + 1, total - 1));
+        setCurrentIndex(prev => Math.min(prev + 1, total - 1));
       }
       if (e.key === 'ArrowLeft') {
-        setCurrentIndex((prev) => Math.max(prev - 1, 0));
+        setCurrentIndex(prev => Math.max(prev - 1, 0));
       }
     };
     window.addEventListener('keydown', handleKeyDown);

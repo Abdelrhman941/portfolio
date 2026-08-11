@@ -210,9 +210,7 @@ function ProjectAction({ label, url }: { label: string; url?: string }) {
       target="_blank"
       rel="noopener noreferrer"
       className={`px-4 py-2 text-white text-sm font-medium rounded-full transition-colors flex items-center gap-2 shadow-sm shadow-black/10 ${
-        label === 'YouTube' 
-          ? 'bg-rose-600 hover:bg-rose-700' 
-          : 'bg-zinc-900 hover:bg-zinc-800'
+        label === 'YouTube' ? 'bg-rose-600 hover:bg-rose-700' : 'bg-zinc-900 hover:bg-zinc-800'
       }`}
     >
       {label}

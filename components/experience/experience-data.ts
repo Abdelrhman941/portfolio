@@ -24,12 +24,15 @@ export const experienceData: ExperienceItem[] = [
     period: 'Jun 2025 \u2014 Dec 2025',
     description:
       'Completed the Generative AI Professional program within the Digital Egypt Pioneers Program, building a structured foundation from machine learning and deep learning through NLP and modern generative AI systems.',
-    scope: [
-      'Machine Learning',
-      'Deep Learning',
-      'NLP',
-      'Generative AI',
-      'LLMs'
-    ],
+    scope: ['Machine Learning', 'Deep Learning', 'NLP', 'Generative AI', 'LLMs'],
+  },
+  {
+    id: 'exp-3',
+    role: 'B.Sc. Artificial Intelligence & Data Science',
+    company: 'Menoufia University',
+    period: '2022 — 2026',
+    description:
+      'Formal academic foundation in computer science and artificial intelligence. Studied algorithms, data structures, mathematics, and advanced AI methodologies while concurrently building full-stack production systems.',
+    scope: ['Computer Science', 'Artificial Intelligence', 'Data Science'],
   },
 ];
