@@ -1,5 +1,6 @@
 import { About } from '@/components/about/About';
 import { Hero } from '@/components/hero/Hero';
+import { Projects } from '@/components/projects/Projects';
 
 export default function Home() {
   return (
@@ -15,6 +16,11 @@ export default function Home() {
         the user from the Hero's transition state.
       */}
       <About />
+
+      {/* 
+        Projects section continues the light theme seamlessly.
+      */}
+      <Projects />
     </main>
   );
 }
