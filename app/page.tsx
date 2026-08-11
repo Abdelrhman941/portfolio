@@ -1,7 +1,8 @@
 import { About } from '@/components/about/About';
+import { Experience } from '@/components/experience/Experience';
 import { Hero } from '@/components/hero/Hero';
 import { Projects } from '@/components/projects/Projects';
-import { Experience } from '@/components/experience/Experience';
+import { Skills } from '@/components/skills/Skills';
 
 export default function Home() {
   return (
@@ -18,16 +19,18 @@ export default function Home() {
       */}
       <About />
 
-      {/* 
+      {/*
         Projects section continues the light theme seamlessly.
       */}
       <Projects />
 
-      {/* 
-        Experience section stays light but creates a subtle paper-like boundary 
+      {/*
+        Experience section stays light but creates a subtle paper-like boundary
         with bg-white, reinforcing the editorial document feel.
       */}
       <Experience />
+
+      <Skills />
     </main>
   );
 }
