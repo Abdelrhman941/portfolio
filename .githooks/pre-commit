@@ -1,0 +1,1 @@
+#!/bin/sh\n\necho "Running pre-commit checks..."\npnpm lint || exit 1\npnpm typecheck || exit 1\n# pnpm format:check || exit 1\necho "Pre-commit checks passed!"\n

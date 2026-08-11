@@ -1,0 +1,12 @@
+node_modules/
+.next/
+dist/
+public/
+coverage/
+*.pdf
+*.webp
+*.png
+*.jpg
+*.jpeg
+*.svg
+pnpm-lock.yaml
