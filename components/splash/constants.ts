@@ -6,14 +6,14 @@
 
 export const SPLASH = {
   /** How long the first line stays up before crossfading to the second. */
-  secondaryInMs: 1700,
+  secondaryInMs: 1400,
 
   /** Total time the splash stays mounted before the reveal starts. */
-  totalMs: 2600,
+  totalMs: 2800,
 
   /** Same, but for prefers-reduced-motion — shorter, still readable. */
   reducedMotionMs: 1800,
 
-  /** Duration of the clip-path reveal into the portfolio. */
-  exitTransitionS: 0.6,
+  /** Duration of the exit transition. */
+  exitTransitionS: 0.85,
 } as const;
