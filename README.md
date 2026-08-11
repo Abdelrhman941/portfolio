@@ -2,10 +2,6 @@
 
 A premium, editorial engineering portfolio designed to showcase production-oriented AI systems, backend infrastructure, and scalable frontend capabilities.
 
-## Live Site
-
-https://abdelrhman.dev
-
 ## Overview
 
 Abdelrhman is an AI Engineer and Full-Stack AI Engineer focused on building real products that ship. The portfolio highlights end-to-end product ownership, from training and orchestrating models to configuring Docker infrastructure, real-time WebSockets, and building accessible Next.js interfaces.
