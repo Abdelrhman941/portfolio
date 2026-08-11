@@ -12,8 +12,7 @@ export function Hero() {
     let alreadySeen = false;
     try {
       alreadySeen = sessionStorage.getItem(STORAGE_KEY) !== null;
-    } catch {
-    }
+    } catch {}
     const isDevReset = window.location.search.includes('reset_splash');
 
     // eslint-disable-next-line react-hooks/set-state-in-effect
