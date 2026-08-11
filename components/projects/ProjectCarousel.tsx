@@ -1,38 +1,46 @@
 'use client';
 
-import { useReducedMotion } from 'motion/react';
-import { useEffect, useState } from 'react';
+import { motion, useInView, useReducedMotion } from 'motion/react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { ProjectCard } from './ProjectCard';
 import { projects } from './project-data';
 
 export function ProjectCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const shouldReduceMotion = useReducedMotion();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { amount: 0.3 });
 
   const total = projects.length;
 
-  const nextProject = () => setCurrentIndex(prev => Math.min(prev + 1, total - 1));
-  const prevProject = () => setCurrentIndex(prev => Math.max(prev - 1, 0));
+  const nextProject = useCallback(
+    () => setCurrentIndex(prev => Math.min(prev + 1, total - 1)),
+    [total]
+  );
+  const prevProject = useCallback(() => setCurrentIndex(prev => Math.max(prev - 1, 0)), []);
 
   useEffect(() => {
+    if (!isInView) return;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight') {
-        setCurrentIndex(prev => Math.min(prev + 1, total - 1));
-      }
-      if (e.key === 'ArrowLeft') {
-        setCurrentIndex(prev => Math.max(prev - 1, 0));
-      }
+      if (e.key === 'ArrowRight') nextProject();
+      if (e.key === 'ArrowLeft') prevProject();
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [total]);
+  }, [isInView, total, nextProject, prevProject]);
 
   return (
     <div className="relative w-full flex flex-col items-center">
       {/* 3D Perspective Container */}
-      <div
-        className="relative w-full max-w-xl md:max-w-3xl aspect-[1/1.1] sm:aspect-16/14 md:aspect-[1.55/1] mx-auto mb-6 md:mb-8"
+      <motion.div
+        ref={containerRef}
+        className="relative w-full max-w-xl md:max-w-3xl aspect-[1/1.1] sm:aspect-16/14 md:aspect-[1.55/1] mx-auto mb-6 md:mb-8 touch-pan-y"
         style={{ perspective: '1600px' }}
+        onPanEnd={(e, info) => {
+          const threshold = 50;
+          if (info.offset.x > threshold) prevProject();
+          else if (info.offset.x < -threshold) nextProject();
+        }}
       >
         {projects.map((project, index) => (
           <ProjectCard
@@ -44,7 +52,7 @@ export function ProjectCarousel() {
             onActivate={() => setCurrentIndex(index)}
           />
         ))}
-      </div>
+      </motion.div>
 
       {/* Minimal Carousel Controls */}
       <div className="flex items-center gap-12 font-mono text-sm">

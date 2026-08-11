@@ -16,6 +16,7 @@ export function Hero() {
       // Ignore
     }
     const isDevReset = window.location.search.includes('reset_splash');
+
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsFirstLoad(!alreadySeen || isDevReset);
   }, []);
@@ -29,6 +30,16 @@ export function HeroContent({ isFirstLoad }: { isFirstLoad: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const isNavMode = useNavMode();
+
+  const [isDesktop, setIsDesktop] = useState(true);
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 768px)');
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsDesktop(mediaQuery.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -100,7 +111,7 @@ export function HeroContent({ isFirstLoad }: { isFirstLoad: boolean }) {
         style={{ backgroundColor: safeBg }}
       >
         {/* 3D Visual Companion */}
-        {!shouldReduceMotion && (
+        {!shouldReduceMotion && isDesktop && (
           <motion.div
             className="absolute right-[-30%] md:right-0 top-[25%] md:top-1/2 md:-translate-y-1/2 z-0 flex items-center justify-end pointer-events-auto w-[130vw] md:w-[50vw] h-[60vh] md:h-[70vh] mix-blend-screen md:mix-blend-normal"
             style={{ scale: robotScale, x: robotX, opacity: robotOpacity }}
@@ -137,7 +148,7 @@ export function HeroContent({ isFirstLoad }: { isFirstLoad: boolean }) {
               </motion.span>
             </motion.div>
 
-            <motion.div
+            <motion.h1
               className="font-(family-name:--font-display) text-7xl sm:text-8xl lg:text-[10rem] font-bold leading-none tracking-tighter"
               style={
                 shouldReduceMotion
@@ -158,7 +169,7 @@ export function HeroContent({ isFirstLoad }: { isFirstLoad: boolean }) {
               ) : (
                 <span className="block opacity-0">Abdelrhman</span>
               )}
-            </motion.div>
+            </motion.h1>
 
             <motion.div
               className="mt-8 md:mt-12 flex max-w-2xl flex-col items-start gap-5 md:gap-6"

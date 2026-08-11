@@ -1,5 +1,7 @@
 'use client';
 
+import { useInView, useReducedMotion } from 'motion/react';
+import { useRef } from 'react';
 import { CollaboratorCard } from './CollaboratorCard';
 import { type CollaboratorQuote } from './collaborators-data';
 
@@ -10,6 +12,10 @@ export function InfiniteCards({
   items: CollaboratorQuote[];
   speed?: 'slow' | 'medium' | 'fast';
 }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { amount: 0.1 });
+  const shouldReduceMotion = useReducedMotion();
+
   // Determine duration based on array size and speed.
   // We want the animation to take roughly 30 seconds for 3 items on slow.
   const getDuration = () => {
@@ -23,49 +29,53 @@ export function InfiniteCards({
   // We need enough items to fill a 4K screen at least twice.
   // 3 items = ~1200px. Repeating 6 times gives ~7200px, enough for any screen.
   const repeatCount = Math.max(3, Math.ceil(12 / items.length));
-  const duplicatedItems = Array.from({ length: repeatCount }).flatMap(() => items);
+
+  // If reduced motion, we do not duplicate items to avoid endless scrolling of identical cards
+  const duplicatedItems = shouldReduceMotion
+    ? items
+    : Array.from({ length: repeatCount }).flatMap(() => items);
 
   return (
-    <div className="relative flex overflow-hidden group w-full py-8">
+    <div
+      ref={containerRef}
+      className={`relative flex ${shouldReduceMotion ? 'overflow-x-auto snap-x snap-mandatory hide-scrollbar' : 'overflow-hidden'} group w-full py-8`}
+    >
       {/* Edge Masks */}
-      <div className="absolute top-0 left-0 bottom-0 w-8 md:w-32 bg-linear-to-r from-zinc-50 to-transparent z-10 pointer-events-none" />
-      <div className="absolute top-0 right-0 bottom-0 w-8 md:w-32 bg-linear-to-l from-zinc-50 to-transparent z-10 pointer-events-none" />
+      {!shouldReduceMotion && (
+        <>
+          <div className="absolute top-0 left-0 bottom-0 w-8 md:w-32 bg-linear-to-r from-zinc-50 to-transparent z-10 pointer-events-none" />
+          <div className="absolute top-0 right-0 bottom-0 w-8 md:w-32 bg-linear-to-l from-zinc-50 to-transparent z-10 pointer-events-none" />
+        </>
+      )}
 
       {/* Track */}
       <div
-        className="flex w-max"
-        style={{
-          animation: `infinite-cards-marquee ${getDuration()}s linear infinite`,
-        }}
+        className={`flex ${shouldReduceMotion ? 'w-full' : 'w-max'} animate-infinite-cards`}
+        style={
+          shouldReduceMotion
+            ? {}
+            : ({
+                animation: `infinite-cards-marquee ${getDuration()}s linear infinite`,
+                animationPlayState: !isInView ? 'paused' : 'running',
+                '--marquee-offset': `-${100 / repeatCount}%`,
+              } as React.CSSProperties)
+        }
         onMouseEnter={e => {
-          e.currentTarget.style.animationPlayState = 'paused';
+          if (!shouldReduceMotion) e.currentTarget.style.animationPlayState = 'paused';
         }}
         onMouseLeave={e => {
-          e.currentTarget.style.animationPlayState = 'running';
+          if (!shouldReduceMotion && isInView) e.currentTarget.style.animationPlayState = 'running';
         }}
       >
         {duplicatedItems.map((item, index) => (
-          <div key={`${item.id}-${index}`} className="px-4 h-full">
+          <div
+            key={`${item.id}-${index}`}
+            className={`px-4 h-full ${shouldReduceMotion ? 'snap-center shrink-0 w-[90vw] max-w-[400px]' : ''}`}
+          >
             <CollaboratorCard collab={item} />
           </div>
         ))}
       </div>
-
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-        @keyframes infinite-cards-marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-${100 / repeatCount}%); }
-        }
-        @media (prefers-reduced-motion) {
-          .flex.w-max {
-              animation-play-state: paused !important;
-          }
-        }
-      `,
-        }}
-      />
     </div>
   );
 }

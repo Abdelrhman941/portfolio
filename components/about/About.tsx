@@ -30,18 +30,14 @@ export function About() {
 
         {/* Editorial 2-Column Layout */}
         <div className="flex flex-col md:flex-row md:items-start gap-16 md:gap-24">
-          {/* Left Column (Sticky Statement & Future Portrait Space) */}
+          {/* Left Column (Sticky Statement) */}
           <div className="w-full md:w-5/12 md:sticky md:top-48 flex flex-col gap-8">
             <h2 className="font-(family-name:--font-display) text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tighter">
               Engineering beyond the model.
             </h2>
 
-            {/* Compositional space intentionally left for a future portrait.
-                The structural line provides a quiet visual boundary. */}
+            {/* Structural line for visual boundary */}
             <div className="hidden md:block w-8 h-px bg-zinc-300 mt-4" aria-hidden="true" />
-
-            {/* The negative space below acts as a balance to the right column,
-                ready to accept an aspect-[3/4] portrait later without layout shifts. */}
           </div>
 
           {/* Right Column (Scrolling Narrative) */}
@@ -76,9 +72,7 @@ export function About() {
               <p>
                 I work iteratively: build, evaluate, refactor, improve. Whether I am configuring
                 Docker infrastructure, optimizing UI performance, or designing WebSocket APIs, I
-                rely on rigorous engineering judgment. I use AI coding aids pragmatically to move
-                faster, but I personally research, evaluate, and own every architectural decision
-                that ships to production.
+                rely on rigorous engineering judgment.
               </p>
 
               <ul className="mt-2 flex flex-col gap-2 text-sm text-zinc-500 border-l border-zinc-200 pl-4 py-1">

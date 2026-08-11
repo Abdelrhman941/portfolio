@@ -23,21 +23,14 @@ export const metadata: Metadata = {
   title: 'Abdelrhman | AI Engineer',
   description:
     'Abdelrhman is an AI Engineer specializing in end-to-end AI systems, Machine Learning, and scalable full-stack infrastructure. Building real products that ship.',
-  metadataBase: new URL('https://abdelrhman.dev'), // Update with actual domain later
+  metadataBase: process.env.NEXT_PUBLIC_SITE_URL
+    ? new URL(process.env.NEXT_PUBLIC_SITE_URL)
+    : new URL('http://localhost:3000'),
   openGraph: {
     title: 'Abdelrhman | Full-Stack AI Engineer',
     description:
       'I build production AI systems end-to-end. From model orchestration to scalable infrastructure and polished interfaces.',
-    url: 'https://abdelrhman.dev',
     siteName: 'Abdelrhman',
-    images: [
-      {
-        url: '/og-image.webp',
-        width: 1200,
-        height: 630,
-        alt: 'Abdelrhman Portfolio Preview',
-      },
-    ],
     locale: 'en_US',
     type: 'website',
   },
@@ -45,7 +38,6 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Abdelrhman | AI Engineer',
     description: 'Building production AI systems end-to-end.',
-    images: ['/og-image.webp'],
   },
   robots: {
     index: true,

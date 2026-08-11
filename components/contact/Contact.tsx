@@ -56,7 +56,6 @@ export function Contact() {
             src={contactData.portrait}
             alt="Abdelrhman Ezzat"
             fill
-            priority
             className="object-cover grayscale hover:grayscale-0 active:grayscale-0 transition-all duration-700 z-10"
             style={{ objectPosition: '50% 18%' }}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

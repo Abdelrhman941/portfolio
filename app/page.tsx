@@ -7,38 +7,35 @@ import { NavProvider } from '@/components/navbar/NavProvider';
 import { Navbar } from '@/components/navbar/Navbar';
 import { Projects } from '@/components/projects/Projects';
 import { Skills } from '@/components/skills/Skills';
-import { SplashScreen } from '@/components/splash/SplashScreen';
 
 export default function Home() {
   return (
-    <SplashScreen>
-      <NavProvider>
-        <main className="flex min-h-screen flex-col bg-zinc-950 relative selection:bg-zinc-200/50">
-          <Navbar />
+    <NavProvider>
+      <main className="flex min-h-screen flex-col bg-zinc-950 relative selection:bg-zinc-200/50">
+        <Navbar />
 
-          <Hero />
+        <Hero />
 
-          <About />
+        <About />
 
-          <div id="projects">
-            <Projects />
-          </div>
+        <div id="projects" className="scroll-mt-24">
+          <Projects />
+        </div>
 
-          <div id="experience">
-            <Experience />
-          </div>
+        <div id="experience" className="scroll-mt-24">
+          <Experience />
+        </div>
 
-          <div id="skills">
-            <Skills />
-          </div>
+        <div id="skills" className="scroll-mt-24">
+          <Skills />
+        </div>
 
-          <Collaborators />
+        <Collaborators />
 
-          <div id="contact">
-            <Contact />
-          </div>
-        </main>
-      </NavProvider>
-    </SplashScreen>
+        <div id="contact" className="scroll-mt-24">
+          <Contact />
+        </div>
+      </main>
+    </NavProvider>
   );
 }

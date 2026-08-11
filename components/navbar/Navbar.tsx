@@ -45,6 +45,18 @@ export function Navbar() {
     return () => window.removeEventListener('keydown', handleEsc);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [mobileMenuOpen]);
+
   return (
     <>
       <motion.header
@@ -120,6 +132,7 @@ export function Navbar() {
             className="md:hidden flex flex-col gap-1.5 p-2"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
+            aria-expanded={mobileMenuOpen}
           >
             <span className="w-5 h-px bg-zinc-100 block" />
             <span className="w-5 h-px bg-zinc-100 block" />
