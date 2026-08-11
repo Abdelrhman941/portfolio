@@ -14,7 +14,7 @@ export const projects: Project[] = [
   {
     id: 'virtai',
     title: 'VirtAI',
-    category: 'Graduation Project',
+    category: 'Graduation Project / AI Education Platform',
     date: 'Jun 2026',
     description:
       'An end-to-end conversational AI system combining real-time speech, retrieval, language models, synthesis, and a 3D avatar through WebSocket streaming.',
@@ -42,6 +42,7 @@ export const projects: Project[] = [
     image: '/projects/traffic-signs.webp',
     technologies: ['Python', 'PyTorch', 'FastAPI', 'OpenCV', 'HTML/CSS/JS'],
     github: 'https://github.com/Abdelrhman941/Traffic-Signs-Project',
+    youtube: 'https://youtu.be/xWEPut6oU2Q?si=ooiSO3si4UE9Iu2e',
   },
   {
     id: 'vehicle-tracking',
@@ -53,6 +54,7 @@ export const projects: Project[] = [
     image: '/projects/vehicle-tracking.webp',
     technologies: ['Python', 'YOLOv8', 'FastAPI', 'OpenCV', 'WebSockets', 'HTML/CSS/JS'],
     github: 'https://github.com/Abdelrhman941/Vehicle-Detection-Project',
+    youtube: 'https://youtu.be/f_7gi9ArWt0?si=c9O9gUl4X9BW9JKX',
   },
   {
     id: 'auto-correct',

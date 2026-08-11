@@ -3,6 +3,7 @@
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { SPLASH, STORAGE_KEY } from '../splash/constants';
+import { SplineScene } from '../ui/spline';
 
 export function Hero() {
   const [isFirstLoad, setIsFirstLoad] = useState(true);
@@ -59,6 +60,11 @@ function HeroContent({ isFirstLoad }: { isFirstLoad: boolean }) {
   const nameY = useTransform(scrollYProgress, [0, 1], ['0vh', '-38vh']);
   const nameTracking = useTransform(scrollYProgress, [0, 1], ['-0.04em', '-0.01em']);
 
+  // Robot scroll choreography
+  const robotScale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
+  const robotX = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
+  const robotOpacity = useTransform(scrollYProgress, [0, 0.6, 1], [1, 0.8, 0]);
+
   // Fade out supporting text early in the scroll
   const supportOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
   const supportY = useTransform(scrollYProgress, [0, 0.4], ['0px', '-40px']);
@@ -90,83 +96,110 @@ function HeroContent({ isFirstLoad }: { isFirstLoad: boolean }) {
         className="sticky top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden"
         style={{ backgroundColor: safeBg }}
       >
-        <div className="relative flex w-full max-w-5xl flex-col items-center justify-center px-6 text-center">
+        {/* 3D Visual Companion */}
+        {!shouldReduceMotion && (
           <motion.div
-            className="mb-6 md:mb-8 flex flex-col items-center gap-3"
-            style={shouldReduceMotion ? { opacity: 1 } : { opacity: supportOpacity, y: supportY }}
+            className="absolute right-[-30%] md:right-0 top-[25%] md:top-1/2 md:-translate-y-1/2 z-0 flex items-center justify-end pointer-events-auto w-[130vw] md:w-[50vw] h-[60vh] md:h-[70vh] mix-blend-screen md:mix-blend-normal"
+            style={{ scale: robotScale, x: robotX, opacity: robotOpacity }}
           >
-            <motion.span
-              className="font-mono text-[10px] md:text-xs font-medium uppercase tracking-[0.2em] block"
-              style={shouldReduceMotion ? { color: textSecondaryLight } : { color: secondaryColor }}
-              {...animProps(0.3)}
+            <motion.div
+              className="w-full h-full max-w-200 opacity-25 md:opacity-100"
+              initial={{ opacity: 0, filter: 'blur(10px)' }}
+              animate={{ opacity: 1, filter: 'blur(0px)' }}
+              transition={{ delay: delayBase + 0.6, duration: 1.5 }}
             >
-              AI Engineer &middot; Full-Stack AI Systems
-            </motion.span>
+              <SplineScene
+                scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+                className="w-full h-full"
+              />
+            </motion.div>
           </motion.div>
+        )}
 
-          <motion.h1
-            className="font-(family-name:--font-display) text-7xl sm:text-8xl lg:text-[10rem] font-bold leading-none tracking-tighter"
-            style={
-              shouldReduceMotion
-                ? { color: textLight }
-                : {
-                    color: primaryColor,
-                    scale: nameScale,
-                    y: nameY,
-                    letterSpacing: nameTracking,
-                    transformOrigin: 'center center',
-                  }
-            }
-          >
-            <motion.span className="block" {...animProps(0.15)}>
-              Abdelrhman
-            </motion.span>
-          </motion.h1>
-
-          <motion.div
-            className="mt-8 md:mt-12 flex max-w-2xl flex-col items-center gap-5 md:gap-6"
-            style={shouldReduceMotion ? { opacity: 1 } : { opacity: supportOpacity, y: supportY }}
-          >
-            <motion.div className="flex flex-col items-center gap-5 md:gap-6" {...animProps(0.45)}>
-              <motion.h2
-                className="text-2xl sm:text-3xl lg:text-4xl font-light tracking-tight"
-                style={shouldReduceMotion ? { color: textLight } : { color: primaryColor }}
-              >
-                I build production AI systems end-to-end.
-              </motion.h2>
-
-              <motion.p
-                className="text-base sm:text-lg"
+        {/* Text Layer (Asymmetric Layout) */}
+        <div className="relative z-10 flex w-full max-w-5xl flex-col items-start justify-center px-6 text-left pointer-events-none h-full md:pt-[10vh] md:translate-x-[-4vw] lg:translate-x-[-6vw]">
+          <div className="flex flex-col items-start w-full md:w-[60%] lg:w-[55%]">
+            <motion.div
+              className="mb-6 md:mb-8 flex flex-col items-start gap-3"
+              style={shouldReduceMotion ? { opacity: 1 } : { opacity: supportOpacity, y: supportY }}
+            >
+              <motion.span
+                className="font-mono text-[10px] md:text-xs font-medium uppercase tracking-[0.2em] block"
                 style={
                   shouldReduceMotion ? { color: textSecondaryLight } : { color: secondaryColor }
                 }
+                {...animProps(0.3)}
               >
-                From model orchestration to scalable infrastructure and polished interfaces. Systems
-                that ship, scale, and deliver.
-              </motion.p>
+                AI Engineer &middot; Full-Stack AI Systems
+              </motion.span>
+            </motion.div>
 
-              <div className="mt-4 md:mt-6 flex flex-wrap justify-center gap-3 md:gap-4 text-xs md:text-sm font-medium">
-                {['AI / RAG', 'Backend', 'Frontend', 'Infrastructure'].map((item, i) => (
-                  <div key={item} className="flex items-center gap-3 md:gap-4">
-                    <motion.span
-                      style={shouldReduceMotion ? { color: textMutedLight } : { color: mutedColor }}
-                    >
-                      {item}
-                    </motion.span>
-                    {i < 3 && (
+            <motion.h1
+              className="font-(family-name:--font-display) text-7xl sm:text-8xl lg:text-[10rem] font-bold leading-none tracking-tighter"
+              style={
+                shouldReduceMotion
+                  ? { color: textLight }
+                  : {
+                      color: primaryColor,
+                      scale: nameScale,
+                      y: nameY,
+                      letterSpacing: nameTracking,
+                      transformOrigin: 'left center',
+                    }
+              }
+            >
+              <motion.span className="block" {...animProps(0.15)}>
+                Abdelrhman
+              </motion.span>
+            </motion.h1>
+
+            <motion.div
+              className="mt-8 md:mt-12 flex max-w-2xl flex-col items-start gap-5 md:gap-6"
+              style={shouldReduceMotion ? { opacity: 1 } : { opacity: supportOpacity, y: supportY }}
+            >
+              <motion.div className="flex flex-col items-start gap-5 md:gap-6" {...animProps(0.45)}>
+                <motion.h2
+                  className="text-2xl sm:text-3xl lg:text-4xl font-light tracking-tight"
+                  style={shouldReduceMotion ? { color: textLight } : { color: primaryColor }}
+                >
+                  I build production AI systems end-to-end.
+                </motion.h2>
+
+                <motion.p
+                  className="text-base sm:text-lg max-w-md"
+                  style={
+                    shouldReduceMotion ? { color: textSecondaryLight } : { color: secondaryColor }
+                  }
+                >
+                  From model orchestration to scalable infrastructure and polished interfaces.
+                  Systems that ship, scale, and deliver.
+                </motion.p>
+
+                <div className="mt-4 md:mt-6 flex flex-wrap justify-start gap-3 md:gap-4 text-xs md:text-sm font-medium max-w-md">
+                  {['AI / RAG', 'Backend', 'Frontend', 'Infrastructure'].map((item, i) => (
+                    <div key={item} className="flex items-center gap-3 md:gap-4">
                       <motion.span
                         style={
                           shouldReduceMotion ? { color: textMutedLight } : { color: mutedColor }
                         }
                       >
-                        &middot;
+                        {item}
                       </motion.span>
-                    )}
-                  </div>
-                ))}
-              </div>
+                      {i < 3 && (
+                        <motion.span
+                          style={
+                            shouldReduceMotion ? { color: textMutedLight } : { color: mutedColor }
+                          }
+                        >
+                          &middot;
+                        </motion.span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Scroll affordance */}
