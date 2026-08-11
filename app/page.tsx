@@ -1,13 +1,20 @@
+import { About } from '@/components/about/About';
 import { Hero } from '@/components/hero/Hero';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col bg-zinc-50">
+    <main className="flex min-h-screen flex-col bg-zinc-950">
+      {/*
+        Hero controls the dark-to-light transition via scroll.
+        It fades its background to bg-zinc-50 at the end.
+      */}
       <Hero />
-      <div className="relative z-10 flex min-h-[50vh] flex-col items-center justify-center py-24 text-center">
-        <h2 className="text-2xl text-zinc-400">Placeholder for next section</h2>
-        <p className="mt-4 text-zinc-500">The portfolio continues here...</p>
-      </div>
+
+      {/*
+        About section natively uses bg-zinc-50, naturally accepting
+        the user from the Hero's transition state.
+      */}
+      <About />
     </main>
   );
 }
