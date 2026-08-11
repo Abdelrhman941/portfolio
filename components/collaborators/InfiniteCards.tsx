@@ -70,7 +70,7 @@ export function InfiniteCards({
         {duplicatedItems.map((item, index) => (
           <div
             key={`${item.id}-${index}`}
-            className={`px-4 h-full ${shouldReduceMotion ? 'snap-center shrink-0 w-[90vw] max-w-[400px]' : ''}`}
+            className={`px-4 h-full ${shouldReduceMotion ? 'snap-center shrink-0 w-[90vw] max-w-100' : ''}`}
           >
             <CollaboratorCard collab={item} />
           </div>
