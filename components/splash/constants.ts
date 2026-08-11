@@ -4,6 +4,8 @@
  * through three components for magic numbers.
  */
 
+export const STORAGE_KEY = 'portfolio-intro-seen';
+
 export const SPLASH = {
   /** How long the first line stays up before crossfading to the second. */
   secondaryInMs: 1400,

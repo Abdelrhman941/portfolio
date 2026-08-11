@@ -2,20 +2,22 @@
 
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
+import { SPLASH, STORAGE_KEY } from '../splash/constants';
 
 export function Hero() {
-  const [isReady, setIsReady] = useState(false);
-  const [isFirstLoad, setIsFirstLoad] = useState(false);
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   useEffect(() => {
-    const alreadySeen = sessionStorage.getItem('portfolio-intro-seen') !== null;
+    let alreadySeen = false;
+    try {
+      alreadySeen = sessionStorage.getItem(STORAGE_KEY) !== null;
+    } catch {
+      // Ignore
+    }
     const isDevReset = window.location.search.includes('reset_splash');
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsFirstLoad(!alreadySeen || isDevReset);
-    setIsReady(true);
   }, []);
-
-  if (!isReady) return null;
 
   return <HeroContent isFirstLoad={isFirstLoad} />;
 }
@@ -61,10 +63,14 @@ function HeroContent({ isFirstLoad }: { isFirstLoad: boolean }) {
   const supportOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
   const supportY = useTransform(scrollYProgress, [0, 0.4], ['0px', '-40px']);
 
-  // Fallbacks for reduced motion (static dark theme)
-  const safeBg = shouldReduceMotion ? bgDark : backgroundColor;
+  // Allow background color to transition even in reduced motion since it doesn't trigger motion sickness
+  const safeBg = backgroundColor;
 
-  const delayBase = isFirstLoad ? 2.8 : 0.1;
+  const delayBase = isFirstLoad
+    ? shouldReduceMotion
+      ? SPLASH.reducedMotionMs / 1000
+      : SPLASH.totalMs / 1000
+    : 0.1;
   const animProps = (offset: number) => ({
     initial: {
       opacity: 0,
@@ -76,7 +82,10 @@ function HeroContent({ isFirstLoad }: { isFirstLoad: boolean }) {
   });
 
   return (
-    <div ref={containerRef} className="relative h-[150vh] md:h-[200vh]">
+    <div
+      ref={containerRef}
+      className={`relative ${shouldReduceMotion ? 'h-[110vh]' : 'h-[150vh] md:h-[200vh]'}`}
+    >
       <motion.div
         className="sticky top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden"
         style={{ backgroundColor: safeBg }}

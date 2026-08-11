@@ -15,13 +15,17 @@ export function SplashScreen({ children }: { children: React.ReactNode }) {
     setShowSplash(false);
   };
 
-  // Avoid a flash of the wrong state during the first client render.
-  if (showSplash === null) return null;
+  // Avoid a flash of the wrong state during the first client render by covering the screen
+  // until hydration determines if the splash should play.
+  // We do NOT return null here so that `children` is always rendered for bots/SEO.
 
   return (
     <>
+      {/* SSR/Hydration fallback overlay */}
+      {showSplash === null && <div className="fixed inset-0 z-[100] bg-zinc-950" />}
+
       <AnimatePresence>
-        {showSplash && (
+        {showSplash === true && (
           <motion.div
             className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950 overflow-hidden"
             initial={{ opacity: 1 }}
