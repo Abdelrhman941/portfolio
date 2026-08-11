@@ -5,7 +5,6 @@ import { motion, useReducedMotion } from 'motion/react';
 export function About() {
   const shouldReduceMotion = useReducedMotion();
 
-  // Restrained motion: text blocks subtly blur and slide in as they scroll into view.
   const revealVariants = {
     hidden: { opacity: 0, y: 24, filter: 'blur(4px)' },
     visible: {
@@ -21,26 +20,21 @@ export function About() {
   return (
     <section className="relative w-full bg-zinc-50 py-24 md:py-48 text-zinc-900 z-10">
       <div className="mx-auto w-full max-w-5xl px-6">
-        {/* Section Marker */}
         <div className="mb-16 md:mb-32 flex">
           <span className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-400">
             01 &mdash; Context
           </span>
         </div>
 
-        {/* Editorial 2-Column Layout */}
         <div className="flex flex-col md:flex-row md:items-start gap-16 md:gap-24">
-          {/* Left Column (Sticky Statement) */}
           <div className="w-full md:w-5/12 md:sticky md:top-48 flex flex-col gap-8">
             <h2 className="font-(family-name:--font-display) text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tighter">
               Engineering beyond the model.
             </h2>
 
-            {/* Structural line for visual boundary */}
             <div className="hidden md:block w-8 h-px bg-zinc-300 mt-4" aria-hidden="true" />
           </div>
 
-          {/* Right Column (Scrolling Narrative) */}
           <div className="w-full md:w-7/12 flex flex-col gap-12 md:gap-16 md:pt-4">
             <motion.div
               initial="hidden"
@@ -83,7 +77,6 @@ export function About() {
               </ul>
             </motion.div>
 
-            {/* Supporting Restrained Metadata */}
             <motion.div
               initial="hidden"
               whileInView="visible"

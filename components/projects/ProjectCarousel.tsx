@@ -15,7 +15,7 @@ export function ProjectCarousel() {
 
   const nextProject = useCallback(
     () => setCurrentIndex(prev => Math.min(prev + 1, total - 1)),
-    [total]
+    [total],
   );
   const prevProject = useCallback(() => setCurrentIndex(prev => Math.max(prev - 1, 0)), []);
 
@@ -31,7 +31,6 @@ export function ProjectCarousel() {
 
   return (
     <div className="relative w-full flex flex-col items-center">
-      {/* 3D Perspective Container */}
       <motion.div
         ref={containerRef}
         className="relative w-full max-w-xl md:max-w-3xl aspect-[1/1.1] sm:aspect-16/14 md:aspect-[1.55/1] mx-auto mb-6 md:mb-8 touch-pan-y"
@@ -54,7 +53,6 @@ export function ProjectCarousel() {
         ))}
       </motion.div>
 
-      {/* Minimal Carousel Controls */}
       <div className="flex items-center gap-12 font-mono text-sm">
         <button
           onClick={prevProject}

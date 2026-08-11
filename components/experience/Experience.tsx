@@ -80,15 +80,13 @@ function TimelineItem({
   variants: Variants;
   shouldReduceMotion: boolean | null;
 }) {
-  // We only run this hook if we want motion, but hooks must be called unconditionally.
-  // We'll use the hook anyway and just apply it conditionally to styles.
+  // Hooks must be called unconditionally, so we run this even if shouldReduceMotion is true.
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start center', 'end center'],
   });
 
-  // Smooth the scroll progress so the line feels fluid and professional
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -96,9 +94,7 @@ function TimelineItem({
   });
 
   const height = useTransform(smoothProgress, [0, 1], ['0%', '100%']);
-
-  // The dot lights up when the line reaches it (roughly at 10% of this item's height)
-  const dotColor = useTransform(smoothProgress, [0, 0.1], ['#e4e4e7', '#18181b']); // zinc-200 to zinc-900
+  const dotColor = useTransform(smoothProgress, [0, 0.1], ['#e4e4e7', '#18181b']);
 
   return (
     <motion.div
@@ -106,26 +102,21 @@ function TimelineItem({
       variants={variants}
       className="flex flex-col md:flex-row md:gap-8 lg:gap-16 group"
     >
-      {/* Left Column: Year/Period */}
       <div className="hidden md:flex w-1/4 justify-end relative pt-2">
         <span className="font-mono text-sm uppercase tracking-widest text-zinc-400 font-medium md:sticky md:top-32 h-fit transition-colors group-hover:text-zinc-900">
           {item.period}
         </span>
       </div>
 
-      {/* Mobile Year */}
       <div className="md:hidden mb-4 mt-12 first:mt-0">
         <span className="font-mono text-xs uppercase tracking-widest text-zinc-400 font-medium">
           {item.period}
         </span>
       </div>
 
-      {/* Right Column: Timeline Content */}
       <div className="w-full md:w-3/4 relative md:pl-12 lg:pl-16 pb-16 md:pb-32 last:pb-0">
-        {/* Background Line (Desktop only) */}
         <div className="hidden md:block absolute left-0 top-0 bottom-0 w-px bg-zinc-200" />
 
-        {/* Animated Fill Line (Desktop only) */}
         {!shouldReduceMotion && (
           <motion.div
             className="hidden md:block absolute left-0 top-0 w-px bg-zinc-900 origin-top z-10"
@@ -133,7 +124,6 @@ function TimelineItem({
           />
         )}
 
-        {/* Timeline Dot (Desktop only) */}
         <motion.div
           className="hidden md:block absolute -left-1.25 top-3.5 w-2.5 h-2.5 rounded-full ring-4 ring-white transition-colors duration-300 group-hover:bg-zinc-900 z-20"
           style={{ backgroundColor: shouldReduceMotion ? '#e4e4e7' : dotColor }}
@@ -150,12 +140,10 @@ function TimelineItem({
           {item.description}
         </p>
 
-        {/* Topics line */}
         <p className="font-mono text-[10px] md:text-xs text-zinc-400 uppercase tracking-widest max-w-2xl leading-loose">
           {item.scope.join(' \u00b7 ')}
         </p>
 
-        {/* Conditional DEPI Certificate Artifact */}
         {item.company.includes('DEPI') && (
           <div className="mt-12 w-full max-w-xl">
             <CertificateArtifact />

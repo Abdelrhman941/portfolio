@@ -15,7 +15,6 @@ export function Navbar() {
   const [activeSection, setActiveSection] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Active section observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       entries => {
@@ -25,18 +24,17 @@ export function Navbar() {
           }
         });
       },
-      { rootMargin: '-20% 0px -80% 0px' }
+      { rootMargin: '-20% 0px -80% 0px' },
     );
 
     const sections = ['projects', 'experience', 'skills', 'contact'].map(id =>
-      document.getElementById(id)
+      document.getElementById(id),
     );
 
     sections.forEach(s => s && observer.observe(s));
     return () => observer.disconnect();
   }, []);
 
-  // Handle escape key for mobile menu
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setMobileMenuOpen(false);
@@ -45,7 +43,6 @@ export function Navbar() {
     return () => window.removeEventListener('keydown', handleEsc);
   }, []);
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -66,7 +63,6 @@ export function Navbar() {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       >
         <div className="w-full max-w-5xl flex items-center justify-between bg-zinc-950/80 backdrop-blur-md border border-zinc-800/50 rounded-2xl px-4 md:px-6 py-3 pointer-events-auto shadow-2xl shadow-black/50">
-          {/* Brand - Morph Target */}
           <div className="shrink-0 w-48">
             {isNavMode && (
               <a
@@ -86,7 +82,6 @@ export function Navbar() {
             )}
           </div>
 
-          {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
             {NAV_ITEMS.map(item => {
               const isActive = activeSection === item.href.substring(1);
@@ -109,7 +104,6 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-4 shrink-0 w-48 justify-end">
             <a
               href="/Abdelrhman-CV.pdf"
@@ -127,7 +121,6 @@ export function Navbar() {
             </a>
           </div>
 
-          {/* Mobile Menu Toggle */}
           <button
             className="md:hidden flex flex-col gap-1.5 p-2"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -140,7 +133,6 @@ export function Navbar() {
         </div>
       </motion.header>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div

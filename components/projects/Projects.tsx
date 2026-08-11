@@ -6,7 +6,6 @@ export function Projects() {
   return (
     <section className="relative w-full bg-zinc-50 pt-10 pb-24 md:pt-16 md:pb-24 text-zinc-900 z-10 overflow-hidden">
       <div className="mx-auto w-full max-w-6xl px-6">
-        {/* Section Header */}
         <div className="mb-8 md:mb-10 flex flex-col items-center text-center">
           <span className="font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] text-zinc-400 mb-3 md:mb-4">
             Selected Work
@@ -19,7 +18,6 @@ export function Projects() {
           </p>
         </div>
 
-        {/* Interactive Showcase */}
         <ProjectCarousel />
       </div>
     </section>

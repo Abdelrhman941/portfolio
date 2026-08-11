@@ -16,21 +16,16 @@ export function InfiniteCards({
   const isInView = useInView(containerRef, { amount: 0.1 });
   const shouldReduceMotion = useReducedMotion();
 
-  // Determine duration based on array size and speed.
-  // We want the animation to take roughly 30 seconds for 3 items on slow.
   const getDuration = () => {
     const base = items.length * 15;
     if (speed === 'fast') return base * 0.5;
     if (speed === 'medium') return base;
-    return base * 1.5; // slow
+    return base * 1.5;
   };
 
-  // Duplicate items to create a seamless infinite loop.
-  // We need enough items to fill a 4K screen at least twice.
-  // 3 items = ~1200px. Repeating 6 times gives ~7200px, enough for any screen.
+  // 3 items = ~1200px. Repeating 6 times gives ~7200px (fills ultrawide displays).
   const repeatCount = Math.max(3, Math.ceil(12 / items.length));
 
-  // If reduced motion, we do not duplicate items to avoid endless scrolling of identical cards
   const duplicatedItems = shouldReduceMotion
     ? items
     : Array.from({ length: repeatCount }).flatMap(() => items);
@@ -40,7 +35,6 @@ export function InfiniteCards({
       ref={containerRef}
       className={`relative flex ${shouldReduceMotion ? 'overflow-x-auto snap-x snap-mandatory hide-scrollbar' : 'overflow-hidden'} group w-full py-8`}
     >
-      {/* Edge Masks */}
       {!shouldReduceMotion && (
         <>
           <div className="absolute top-0 left-0 bottom-0 w-8 md:w-32 bg-linear-to-r from-zinc-50 to-transparent z-10 pointer-events-none" />
@@ -48,7 +42,6 @@ export function InfiniteCards({
         </>
       )}
 
-      {/* Track */}
       <div
         className={`flex ${shouldReduceMotion ? 'w-full' : 'w-max'} animate-infinite-cards`}
         style={

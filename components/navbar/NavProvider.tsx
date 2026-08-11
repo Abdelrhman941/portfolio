@@ -10,7 +10,6 @@ export function NavProvider({ children }: { children: React.ReactNode }) {
   const [isNavMode, setIsNavMode] = useState(false);
 
   useMotionValueEvent(scrollY, 'change', latest => {
-    // Transition to nav mode when scrolled past 40% of the viewport height
     const threshold = typeof window !== 'undefined' ? window.innerHeight * 0.4 : 300;
     if (latest > threshold && !isNavMode) setIsNavMode(true);
     if (latest <= threshold && isNavMode) setIsNavMode(false);

@@ -13,7 +13,6 @@ export function Hero() {
     try {
       alreadySeen = sessionStorage.getItem(STORAGE_KEY) !== null;
     } catch {
-      // Ignore
     }
     const isDevReset = window.location.search.includes('reset_splash');
 
@@ -46,44 +45,40 @@ export function HeroContent({ isFirstLoad }: { isFirstLoad: boolean }) {
     offset: ['start start', 'end end'],
   });
 
-  // Color system transitions (Dark to Light)
-  const bgDark = '#09090b'; // zinc-950
-  const bgLight = '#fafafa'; // zinc-50
+  const bgDark = '#09090b';
+  const bgLight = '#fafafa';
 
-  const textLight = '#f4f4f5'; // zinc-100
-  const textDark = '#18181b'; // zinc-900
+  const textLight = '#f4f4f5';
+  const textDark = '#18181b';
 
-  const textSecondaryLight = '#a1a1aa'; // zinc-400
-  const textSecondaryDark = '#71717a'; // zinc-500
+  const textSecondaryLight = '#a1a1aa';
+  const textSecondaryDark = '#71717a';
 
-  const textMutedLight = '#52525b'; // zinc-600
-  const textMutedDark = '#a1a1aa'; // zinc-400
+  const textMutedLight = '#52525b';
+  const textMutedDark = '#a1a1aa';
 
-  // Map progress to styles
   const backgroundColor = useTransform(scrollYProgress, [0, 0.7], [bgDark, bgLight]);
   const primaryColor = useTransform(scrollYProgress, [0, 0.7], [textLight, textDark]);
   const secondaryColor = useTransform(
     scrollYProgress,
     [0, 0.7],
-    [textSecondaryLight, textSecondaryDark]
+    [textSecondaryLight, textSecondaryDark],
   );
   const mutedColor = useTransform(scrollYProgress, [0, 0.7], [textMutedLight, textMutedDark]);
 
-  // Name scaling & translation (we keep these so it shrinks physically on scroll, then hands off to Navbar)
+  // We keep scaling and translation tied to scroll so it physically shrinks before handing off to the Navbar.
   const nameScale = useTransform(scrollYProgress, [0, 1], [1, 0.35]);
   const nameY = useTransform(scrollYProgress, [0, 1], ['0vh', '-38vh']);
   const nameTracking = useTransform(scrollYProgress, [0, 1], ['-0.04em', '-0.01em']);
 
-  // Robot scroll choreography
   const robotScale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
   const robotX = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
   const robotOpacity = useTransform(scrollYProgress, [0, 0.6, 1], [1, 0.8, 0]);
 
-  // Fade out supporting text early in the scroll
   const supportOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
   const supportY = useTransform(scrollYProgress, [0, 0.4], ['0px', '-40px']);
 
-  // Allow background color to transition even in reduced motion since it doesn't trigger motion sickness
+  // Allow background color to transition in reduced-motion since color fades don't trigger motion sickness.
   const safeBg = backgroundColor;
 
   const delayBase = isFirstLoad
@@ -110,7 +105,6 @@ export function HeroContent({ isFirstLoad }: { isFirstLoad: boolean }) {
         className="sticky top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden"
         style={{ backgroundColor: safeBg }}
       >
-        {/* 3D Visual Companion */}
         {!shouldReduceMotion && isDesktop && (
           <motion.div
             className="absolute right-[-30%] md:right-0 top-[25%] md:top-1/2 md:-translate-y-1/2 z-0 flex items-center justify-end pointer-events-auto w-[130vw] md:w-[50vw] h-[60vh] md:h-[70vh] mix-blend-screen md:mix-blend-normal"
@@ -130,7 +124,6 @@ export function HeroContent({ isFirstLoad }: { isFirstLoad: boolean }) {
           </motion.div>
         )}
 
-        {/* Text Layer (Asymmetric Layout) */}
         <div className="relative z-10 flex w-full max-w-5xl flex-col items-start justify-center px-6 text-left pointer-events-none h-full md:pt-[10vh] md:translate-x-[-4vw] lg:translate-x-[-6vw]">
           <div className="flex flex-col items-start w-full md:w-[60%] lg:w-[55%]">
             <motion.div
@@ -229,7 +222,6 @@ export function HeroContent({ isFirstLoad }: { isFirstLoad: boolean }) {
           </div>
         </div>
 
-        {/* Scroll affordance */}
         <motion.div
           className="absolute bottom-8 md:bottom-12 flex flex-col items-center gap-2"
           style={shouldReduceMotion ? { opacity: 1 } : { opacity: supportOpacity }}

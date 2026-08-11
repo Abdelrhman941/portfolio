@@ -43,8 +43,7 @@ export function Skills() {
                 isMuted={isMuted}
                 onFocus={() => setFocusedClusterId(cluster.id)}
                 onBlur={() => {
-                  // Only clear if we are blurring the currently focused item
-                  // (avoids flicker when moving quickly between items)
+                  // Clear only if blurring the active item to prevent flicker.
                   if (focusedClusterId === cluster.id) {
                     setFocusedClusterId(null);
                   }

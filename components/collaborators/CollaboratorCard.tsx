@@ -44,7 +44,6 @@ export function CollaboratorCard({ collab }: { collab: CollaboratorQuote }) {
 
   const identityContentJsx = (
     <div className="flex items-center gap-3">
-      {/* Avatar */}
       <div className="w-10 h-10 rounded-full bg-zinc-200 overflow-hidden shrink-0 flex items-center justify-center text-zinc-500 font-mono text-xs">
         {avatarToLoad && !imageError ? (
           /* eslint-disable-next-line @next/next/no-img-element */
@@ -59,7 +58,6 @@ export function CollaboratorCard({ collab }: { collab: CollaboratorQuote }) {
           getInitials(collab.name)
         )}
       </div>
-      {/* Meta */}
       <div className="flex flex-col">
         <span className="text-sm font-medium text-zinc-900 transition-colors group-hover/link:text-zinc-600">
           {collab.name}
@@ -90,7 +88,6 @@ export function CollaboratorCard({ collab }: { collab: CollaboratorQuote }) {
   return (
     <div className="w-75 md:w-105 p-6 md:p-8 rounded-xl border border-zinc-200/50 bg-white shadow-sm shrink-0 flex flex-col justify-between gap-8 h-full">
       <div className="flex flex-col gap-4">
-        {/* Quote area */}
         <p
           className={`text-base text-zinc-600 leading-relaxed font-light ${
             currentDir === 'rtl' ? 'font-sans' : ''
@@ -100,7 +97,6 @@ export function CollaboratorCard({ collab }: { collab: CollaboratorQuote }) {
           &quot;{currentQuote}&quot;
         </p>
 
-        {/* Translation toggle */}
         {hasAr && (
           <button
             onClick={() => setShowAr(!showAr)}
@@ -122,7 +118,6 @@ export function CollaboratorCard({ collab }: { collab: CollaboratorQuote }) {
         )}
       </div>
 
-      {/* Identity */}
       {collab.profileUrl ? (
         <a
           href={collab.profileUrl}
