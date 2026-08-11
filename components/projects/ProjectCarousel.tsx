@@ -31,7 +31,7 @@ export function ProjectCarousel() {
     <div className="relative w-full flex flex-col items-center">
       {/* 3D Perspective Container */}
       <div
-        className="relative w-full max-w-xl md:max-w-3xl aspect-[1/1.1] sm:aspect-16/14 md:aspect-16/12 mx-auto mb-12"
+        className="relative w-full max-w-xl md:max-w-3xl aspect-[1/1.1] sm:aspect-16/14 md:aspect-[1.55/1] mx-auto mb-6 md:mb-8"
         style={{ perspective: '1600px' }}
       >
         {projects.map((project, index) => (

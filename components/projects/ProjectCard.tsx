@@ -105,7 +105,7 @@ export function ProjectCard({
     >
       <div className="flex flex-col w-full h-full bg-white border border-zinc-200 shadow-sm overflow-hidden rounded-xl">
         {/* Image Area */}
-        <div className="relative w-full aspect-16/10 bg-zinc-100 shrink-0 group overflow-hidden">
+        <div className="relative w-full h-[50%] md:h-[55%] bg-zinc-100 shrink-0 group overflow-hidden border-b border-zinc-100">
           {/* Placeholder Fallback underneath */}
           <div className="absolute inset-0 flex flex-col items-center justify-center text-zinc-300">
             <span className="font-mono text-6xl font-light opacity-50">
@@ -133,13 +133,13 @@ export function ProjectCard({
         </div>
 
         {/* Content Area */}
-        <div className="flex flex-col grow p-6 md:p-8 bg-white">
-          <div className="flex justify-between items-start mb-4">
+        <div className="flex flex-col grow p-5 md:p-6 lg:p-8 bg-white">
+          <div className="flex justify-between items-start mb-3 lg:mb-4">
             <div className="flex flex-col gap-1">
-              <h3 className="text-xl md:text-2xl font-medium text-zinc-900 tracking-tight">
+              <h3 className="text-lg md:text-xl lg:text-2xl font-medium text-zinc-900 tracking-tight">
                 {project.title}
               </h3>
-              <p className="text-xs font-mono uppercase tracking-wider text-zinc-500">
+              <p className="text-[10px] md:text-xs font-mono uppercase tracking-wider text-zinc-500">
                 {project.category} &middot; {project.date}
               </p>
             </div>
@@ -148,15 +148,15 @@ export function ProjectCard({
             </span>
           </div>
 
-          <p className="text-sm md:text-base text-zinc-600 leading-relaxed mb-6">
+          <p className="text-xs md:text-sm lg:text-base text-zinc-600 leading-relaxed mb-4 lg:mb-6 line-clamp-3 md:line-clamp-none">
             {project.description}
           </p>
 
-          <div className="mt-auto flex flex-wrap gap-2">
+          <div className="mt-auto flex flex-wrap gap-1.5 md:gap-2">
             {project.technologies.map(tech => (
               <span
                 key={tech}
-                className="px-2 py-1 text-[10px] md:text-xs font-mono bg-zinc-100 text-zinc-600 rounded-sm"
+                className="px-1.5 py-0.5 md:px-2 md:py-1 text-[9px] md:text-[10px] lg:text-xs font-mono bg-zinc-100 text-zinc-600 rounded-sm"
               >
                 {tech}
               </span>
