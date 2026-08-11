@@ -9,6 +9,7 @@ web
 ## Users
 
 **Primary:** A mix of audiences evaluating Abdelrhman for different opportunities:
+
 - **Hiring managers and recruiters** at tech companies — deciding whether to advance to interview
 - **Senior engineers and technical leads** — evaluating as a peer or potential hire, reading for depth
 - **Freelance clients and startups** — deciding whether to hire for a project, reading for trust and range
@@ -40,6 +41,7 @@ The differentiator no neighboring portfolio could copy: demonstrated end-to-end 
 ## Capabilities and Constraints
 
 **Planned sections (confirmed):**
+
 - Hero / intro
 - About / bio
 - Projects / case studies
@@ -48,12 +50,14 @@ The differentiator no neighboring portfolio could copy: demonstrated end-to-end 
 - Contact / reach out
 
 **Stack (existing codebase):**
+
 - Next.js 16 + React 19 + TypeScript
 - Tailwind CSS v4
 - motion (v13, formerly Framer Motion)
 - pnpm monorepo
 
 **Fonts loaded (layout.tsx):**
+
 - Geist Sans (`--font-geist-sans`) — primary UI font
 - Geist Mono (`--font-geist-mono`) — code/data contexts
 - Caveat (`--font-caveat`) — handwritten accent, used sparingly
@@ -61,6 +65,7 @@ The differentiator no neighboring portfolio could copy: demonstrated end-to-end 
 **Splash screen:** complete — session-based, `( text )` bracket animation, clip-path reveal.
 
 **Currently undecided:**
+
 - Specific projects to feature (content not yet provided)
 - Final color palette / design tokens
 - Whether dark/light split happens at a section boundary or on scroll

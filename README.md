@@ -1,52 +1,76 @@
 # Abdelrhman's Portfolio
 
-## Overview
-A premium, editorial portfolio designed for an AI & Full-Stack Engineer. It focuses on clean typography, precise motion, and establishing product-engineering capabilities.
+A premium, editorial engineering portfolio designed to showcase production-oriented AI systems, backend infrastructure, and scalable frontend capabilities.
 
-## Stack
+## Live Site
+
+https://abdelrhman.dev
+
+## Overview
+
+Abdelrhman is an AI Engineer and Full-Stack AI Engineer focused on building real products that ship. The portfolio highlights end-to-end product ownership, from training and orchestrating models to configuring Docker infrastructure, real-time WebSockets, and building accessible Next.js interfaces.
+
+## Tech Stack
+
 - **Framework:** Next.js 16 (App Router)
-- **Styling:** Tailwind CSS (v4)
+- **Library:** React 19
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS v4
 - **Motion:** `motion/react` (Framer Motion)
-- **3D Graphics:** Spline
+- **3D Graphics:** Spline (Desktop only)
 - **Typography:** Geist & Geist Mono
 
-## Architecture
-The application is structured into domain-specific components residing in `components/`. It avoids generic state management in favor of localized React state and `framer-motion` layout animations.
+## Project Structure
+
+- `app/`: Next.js App Router endpoints, global CSS, server layouts, metadata, and dynamic SEO configurations (`sitemap.ts`, `robots.ts`).
+- `components/`: Modular, domain-driven UI components (hero, about, projects, skills, collaborators, contact). Features localized state and Framer Motion layouts.
+- `public/`: Static assets, images, and the downloadable CV.
 
 ## Development
+
 ```bash
 # Install dependencies
 pnpm install
 
-# Run development server
+# Run the local development server
 pnpm dev
 ```
 
-## Build
+## Quality Checks
+
 ```bash
-# Typecheck
-pnpm tsc --noEmit
+# Run TypeScript typechecking
+pnpm typecheck
 
-# Lint
-pnpm eslint .
+# Run ESLint
+pnpm lint
 
-# Build for production
-pnpm build
+# Format code with Prettier
+pnpm format
+
+# Verify formatting
+pnpm format:check
 ```
 
-## Or use Makefile ⭐⭐
-```bash
-# Install dependencies
-make install  
+## Git Workflow
 
-# Run development server
-make run
+This repository follows a professional team-style Git workflow:
 
-# Build for production
-make build
-```
+- **Feature Branches:** Create a branch for new features or fixes (`feat/...` or `fix/...`).
+- **Conventional Commits:** Use standard prefixes like `feat:`, `fix:`, `refactor:`, `perf:`, `docs:`.
+- **Pre-commit Hooks:** Commits are guarded by a lightweight hook that enforces typechecking and linting.
+- **CI Checks:** GitHub Actions automatically runs the quality gate (`pnpm lint`, `pnpm typecheck`, `pnpm build`) on all PRs and pushes to `main`.
+- **Protected Main:** The `main` branch is protected and always remains in a deployable state.
 
-## Project Structure
-- `app/`: Next.js App Router endpoints, global CSS, layout, metadata.
-- `components/`: Modular component domains (about, contact, hero, projects, splash, etc).
-- `public/`: Static assets, CV, images.
+## Deployment
+
+- **Source:** GitHub is the source of truth.
+- **CI/CD:** GitHub Actions executes all quality and static checks.
+- **Hosting:** Vercel automatically deploys the application when the CI checks pass on the `main` branch.
+
+## Repository Principles
+
+- **Authenticity:** No fabricated content or generic client testimonials. Every claim is supported by technical evidence.
+- **Accessibility:** Semantic HTML, single H1 architecture, focus visibility, touch targets, and ARIA where necessary.
+- **Performance:** Dynamic `prefers-reduced-motion` fallbacks, native scroll-snap offscreen rendering, and bypassed Spline WebGL execution on mobile devices.
+- **Purposeful Motion:** Animations serve to structure information hierarchy, not decorate empty space. No particle backgrounds or unnecessary glowing effects.
